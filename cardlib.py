@@ -1,9 +1,11 @@
 from abc import ABC,abstractmethod
-import enum
+from enum import Enum
+import random
 
 class PlayingCard(ABC):
-    def __init__(self,Suit):
-        self.Suit = Suit
+    def __init__(self,value,suit):
+        self.value = value
+        self.suit = suit
     
     def JackCard(Suit):
         pass
@@ -22,22 +24,23 @@ class PlayingCard(ABC):
         pass
 
 
-class Suit(enum.Enum):
-    Hearts = 1
-    Spades = 2
-    Clubs = 3
-    Diamonds = 4
+class Suit(Enum):
+    Hearts = 0
+    Spades = 1
+    Clubs = 2
+    Diamonds = 3
 
 
-class Hand(object):
+class Hand(PlayingCard):
     def __init__(self):
-        pass
+        super().__init__(self)
 
     def add_card():
         pass
 
-    def drop_cards():
-        pass
+    def drop_cards(self,indList):
+        for i in range(indList):
+            self.pop(i)
 
     def sort():
         pass
@@ -45,12 +48,27 @@ class Hand(object):
     def best_poker_hand(self,cards = []):
         pass
 
-
-class StandardDeck(object):
-    def __init__(self):
+    def get_value():
         pass
 
 
-class PokerHand(object):
+class StandardDeck(PlayingCard):
     def __init__(self):
+        pass
+
+    def shuffle(self):
+        random.shuffle(self)
+
+    def draw(self,loc,num):
+        pass 
+
+    def get_value():
+        pass
+
+
+class PokerHand(PlayingCard):
+    def __init__(self):
+        pass
+
+    def get_value():
         pass
