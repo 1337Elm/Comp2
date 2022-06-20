@@ -27,3 +27,30 @@ class Suit(enum.Enum):
     Spades = 2
     Clubs = 3
     Diamonds = 4
+
+
+class Hand(object):
+    def __init__(self):
+        pass
+
+    def add_card():
+        pass
+
+    def drop_cards():
+        pass
+
+    def sort():
+        pass
+
+    def best_poker_hand(self,cards = []):
+        pass
+
+
+class StandardDeck(object):
+    def __init__(self):
+        pass
+
+
+class PokerHand(object):
+    def __init__(self):
+        pass
