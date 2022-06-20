@@ -5,7 +5,7 @@ import random
 class PlayingCard(ABC):
     @abstractmethod
     def __init__(self,suit):
-        self.suit = suit
+        pass
 
     @abstractmethod
     def get_value():
@@ -13,7 +13,7 @@ class PlayingCard(ABC):
 
 class NumberedCard(PlayingCard):
     def __init__(self, suit, value):
-        super().__init__(self,suit)
+        self.suit = suit
         self.value = value
 
     def get_value(self):
@@ -22,34 +22,34 @@ class NumberedCard(PlayingCard):
     
 class JackCard(PlayingCard):
     def __init__(self, suit):
-        super().__init__(self,suit)
+        self.suit = suit
 
     def get_value():
-        pass
+        return 11
 
 
 class QueenCard(PlayingCard):
     def __init__(self, suit):
-        super().__init__(suit)
+        self.suit = suit
 
     def get_value():
-        pass
+        return 12
 
 
 class KingCard(PlayingCard):
     def __init__(self, suit):
-        super().__init__(suit)
+        self.suit = suit
 
     def get_value():
-        pass
+        return 13
 
 
 class AceCard(PlayingCard):
     def __init__(self, suit):
-        super().__init__(suit)
+        self.suit = suit
 
     def get_value():
-        pass
+        return 14
 
 
 class Suit(Enum):
@@ -60,11 +60,11 @@ class Suit(Enum):
 
 
 class Hand(list):
-    def __init__(self):
-        super().__init__(self)
-
-    def add_card(self,cards = []):
-        for i in cards:
+    def __init__(self,cards = []):
+        self.cards = cards
+        
+    def add_card(self,CardsToAdd = []):
+        for i in CardsToAdd:
             self.append(i)
 
     def drop_cards(self,indList):
@@ -77,14 +77,19 @@ class Hand(list):
     def best_poker_hand(self,cards = []):
         pass
 
-    def get_value():
-        pass
-
 
 class StandardDeck(list):
     def __init__(self):
-        super().__init__()
+        for i in range(13):
+            for j in range(4):
+                self.append(NumberedCard(i,j))
 
+        for i in range(4):
+            self.append(JackCard(i))
+            self.append(QueenCard(i))
+            self.append(KingCard(i))
+            self.append(AceCard(i))
+        
     def shuffle(self):
         random.shuffle(self)
 
@@ -95,3 +100,9 @@ class StandardDeck(list):
 class PokerHand(list):
     def __init__(self):
         pass
+
+
+deck = StandardDeck()
+
+for i in deck:
+    print(i)
