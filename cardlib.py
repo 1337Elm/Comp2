@@ -19,12 +19,15 @@ class NumberedCard(PlayingCard):
     def get_value(self):
         return self.value
 
+    def __repr__(self):
+        return self.value
+
     
 class JackCard(PlayingCard):
     def __init__(self, suit):
         self.suit = suit
 
-    def get_value():
+    def get_value(self):
         return 11
 
 
@@ -32,7 +35,7 @@ class QueenCard(PlayingCard):
     def __init__(self, suit):
         self.suit = suit
 
-    def get_value():
+    def get_value(self):
         return 12
 
 
@@ -40,7 +43,7 @@ class KingCard(PlayingCard):
     def __init__(self, suit):
         self.suit = suit
 
-    def get_value():
+    def get_value(self):
         return 13
 
 
@@ -48,7 +51,7 @@ class AceCard(PlayingCard):
     def __init__(self, suit):
         self.suit = suit
 
-    def get_value():
+    def get_value(self):
         return 14
 
 
@@ -80,9 +83,9 @@ class Hand(list):
 
 class StandardDeck(list):
     def __init__(self):
-        for i in range(13):
+        for i in range(2,11):
             for j in range(4):
-                self.append(NumberedCard(i,j))
+                self.append(NumberedCard(j,i))
 
         for i in range(4):
             self.append(JackCard(i))
@@ -90,19 +93,18 @@ class StandardDeck(list):
             self.append(KingCard(i))
             self.append(AceCard(i))
         
+        self.sort()
+  
     def shuffle(self):
         random.shuffle(self)
 
-    def draw(self,loc,num):
-        pass 
+    def draw(self):
+        self.pop(0)
 
 
 class PokerHand(list):
     def __init__(self):
         pass
-
+    
 
 deck = StandardDeck()
-
-for i in deck:
-    print(i)
