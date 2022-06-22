@@ -170,10 +170,10 @@ class Hand(list):
 class StandardDeck(list):
     def __init__(self):
         for i in range(2,11):
-            for j in range(4):
+            for j in Suit:
                 self.append(NumberedCard(j,i))
 
-        for i in range(4):
+        for i in Suit:
             self.append(JackCard(i))
             self.append(QueenCard(i))
             self.append(KingCard(i))
@@ -193,5 +193,6 @@ class PokerHand(list):
         pass
 
 deck = StandardDeck()
+
 for card in deck:
-    print(card.get_value())
+    print(f"{card.get_value()} of {card.suit}")
