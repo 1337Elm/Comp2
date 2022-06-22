@@ -1,3 +1,9 @@
+"""
+Python library for a game of poker. Consists of Card-classes (NumberedCard, JackCard, QueenCard, KingCard and AceCard).
+Aswell as a Enum Suit class, Hand class, StandardDeck class and finally a Pokerhand class.
+
+Author: Benjamin Elm Jonsson 2022, benjamin.elmjonsson@gmail.com
+"""
 from abc import ABC,abstractmethod
 from enum import Enum
 import random
@@ -8,8 +14,21 @@ class PlayingCard(ABC):
         pass
 
     @abstractmethod
-    def get_value():
+    def get_value(self):
         pass
+
+    @abstractmethod
+    def __eq__(self, other: object):
+        pass
+
+    @abstractmethod
+    def __lt__(self, other: object):
+        pass
+
+    @abstractmethod
+    def __gt__(self, other: object):
+        pass
+
 
 class NumberedCard(PlayingCard):
     def __init__(self, suit, value):
@@ -25,13 +44,13 @@ class NumberedCard(PlayingCard):
         else:
             return False
     
-    def __lt__(self,other:object):
+    def __lt__(self,other: object):
         if self.get_value()<other.get_value():
             return True
         else:
             return False
 
-    def __gt__(self,other:object):
+    def __gt__(self,other: object):
         if self.get_value()>other.get_value():
             return True
         else:
@@ -50,13 +69,13 @@ class JackCard(PlayingCard):
         else:
             return False
     
-    def __lt__(self,other:object):
+    def __lt__(self,other: object):
         if self.get_value()<other.get_value():
             return True
         else:
             return False
 
-    def __gt__(self,other:object):
+    def __gt__(self,other: object):
         if self.get_value()>other.get_value():
             return True
         else:
@@ -76,13 +95,13 @@ class QueenCard(PlayingCard):
         else:
             return False
     
-    def __lt__(self,other:object):
+    def __lt__(self,other: object):
         if self.get_value()<other.get_value():
             return True
         else:
             return False
 
-    def __gt__(self,other:object):
+    def __gt__(self,other: object):
         if self.get_value()>other.get_value():
             return True
         else:
@@ -102,13 +121,13 @@ class KingCard(PlayingCard):
         else:
             return False
     
-    def __lt__(self,other:object):
+    def __lt__(self,other: object):
         if self.get_value()<other.get_value():
             return True
         else:
             return False
 
-    def __gt__(self,other:object):
+    def __gt__(self,other: object):
         if self.get_value()>other.get_value():
             return True
         else:
@@ -128,13 +147,13 @@ class AceCard(PlayingCard):
         else:
             return False
     
-    def __lt__(self,other:object):
+    def __lt__(self,other: object):
         if self.get_value()<other.get_value():
             return True
         else:
             return False
 
-    def __gt__(self,other:object):
+    def __gt__(self,other: object):
         if self.get_value()>other.get_value():
             return True
         else:
