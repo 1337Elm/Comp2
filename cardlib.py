@@ -191,8 +191,3 @@ class StandardDeck(list):
 class PokerHand(list):
     def __init__(self):
         pass
-
-deck = StandardDeck()
-
-for card in deck:
-    print(f"{card.get_value()} of {card.suit}")
