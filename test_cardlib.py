@@ -1,4 +1,6 @@
+from cgi import test
 from enum import Enum
+from unittest import suite
 import pytest
 
 from cardlib import *
@@ -7,7 +9,7 @@ from cardlib import *
 # This test assumes you call your suit class "Suit" and the suits "Hearts and "Spades"
 def test_cards():
     h5 = NumberedCard(4, Suit.Hearts)
-    assert isinstance(h5.suit, Enum)
+    assert isinstance(h5.suit, Suit)
 
     sk = KingCard(Suit.Spades)
     assert sk.get_value() == 13
@@ -93,3 +95,5 @@ def test_pokerhands():
     cl = [QueenCard(Suit.Clubs), QueenCard(Suit.Spades), KingCard(Suit.Clubs), KingCard(Suit.Spades)]
     ph5 = h1.best_poker_hand(cl)
     # assert # Check ph5 handtype class and data here>
+
+test_cards()
