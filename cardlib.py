@@ -25,9 +25,6 @@ class PlayingCard(ABC):
     def __lt__(self, other: object):
         pass
 
-    @abstractmethod
-    def __gt__(self, other: object):
-        pass
 
 class PokerHand(ABC):
     @abstractmethod
@@ -44,7 +41,7 @@ class PokerHand(ABC):
 
 
 class NumberedCard(PlayingCard):
-    def __init__(self, suit, value):
+    def __init__(self, value, suit):
         self.suit = suit 
         self.value = value
 
@@ -52,7 +49,7 @@ class NumberedCard(PlayingCard):
         return self.value
     
     def __eq__(self, other: object):
-        if self.get_value()==other.get_value():
+        if self.get_value() == other.get_value():
             if self.suit == other.suit:
                 return True
         else:
@@ -64,35 +61,23 @@ class NumberedCard(PlayingCard):
         else:
             return False
 
-    def __gt__(self,other: object):
-        if self.get_value()>other.get_value():
-            return True
-        else:
-            return False
     
 class JackCard(PlayingCard):
     def __init__(self, suit):
         self.suit = suit
-        self.value = self.get_value()
 
     def get_value(self):
         return 11
     
     def __eq__(self, other: object):
-        if self.get_value()==other.get_value():
+        if self.get_value() == other.get_value():
             if self.suit == other.suit:
                 return True
         else:
             return False
     
     def __lt__(self,other: object):
-        if self.get_value()<other.get_value():
-            return True
-        else:
-            return False
-
-    def __gt__(self,other: object):
-        if self.get_value()>other.get_value():
+        if self.get_value() < other.get_value():
             return True
         else:
             return False
@@ -101,26 +86,19 @@ class JackCard(PlayingCard):
 class QueenCard(PlayingCard):
     def __init__(self, suit):
         self.suit = suit
-        self.value = self.get_value()
 
     def get_value(self):
         return 12
 
     def __eq__(self, other: object):
-        if self.get_value()==other.get_value():
+        if self.get_value() == other.get_value():
             if self.suit == other.suit:
                 return True
         else:
             return False
     
     def __lt__(self,other: object):
-        if self.get_value()<other.get_value():
-            return True
-        else:
-            return False
-
-    def __gt__(self,other: object):
-        if self.get_value()>other.get_value():
+        if self.get_value() < other.get_value():
             return True
         else:
             return False
@@ -129,26 +107,19 @@ class QueenCard(PlayingCard):
 class KingCard(PlayingCard):
     def __init__(self, suit):
         self.suit = suit
-        self.value = self.get_value()
 
     def get_value(self):
         return 13
 
     def __eq__(self, other: object):
-        if self.get_value()==other.get_value():
+        if self.get_value() == other.get_value():
             if self.suit == other.suit:
                 return True
         else:
             return False
     
     def __lt__(self,other: object):
-        if self.get_value()<other.get_value():
-            return True
-        else:
-            return False
-
-    def __gt__(self,other: object):
-        if self.get_value()>other.get_value():
+        if self.get_value() < other.get_value():
             return True
         else:
             return False
@@ -157,26 +128,19 @@ class KingCard(PlayingCard):
 class AceCard(PlayingCard):
     def __init__(self, suit):
         self.suit = suit
-        self.value = self.get_value()
 
     def get_value(self):
         return 14
 
     def __eq__(self, other: object):
-        if self.get_value()==other.get_value():
+        if self.get_value() == other.get_value():
             if self.suit == other.suit:
                 return True
         else:
             return False
     
     def __lt__(self,other: object):
-        if self.get_value()<other.get_value():
-            return True
-        else:
-            return False
-
-    def __gt__(self,other: object):
-        if self.get_value()>other.get_value():
+        if self.get_value() < other.get_value():
             return True
         else:
             return False
