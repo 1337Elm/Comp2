@@ -73,6 +73,7 @@ class NumberedCard(PlayingCard):
 class JackCard(PlayingCard):
     def __init__(self, suit):
         self.suit = suit
+        self.value = self.get_value()
 
     def get_value(self):
         return 11
@@ -100,6 +101,7 @@ class JackCard(PlayingCard):
 class QueenCard(PlayingCard):
     def __init__(self, suit):
         self.suit = suit
+        self.value = self.get_value()
 
     def get_value(self):
         return 12
@@ -127,6 +129,7 @@ class QueenCard(PlayingCard):
 class KingCard(PlayingCard):
     def __init__(self, suit):
         self.suit = suit
+        self.value = self.get_value()
 
     def get_value(self):
         return 13
@@ -154,6 +157,7 @@ class KingCard(PlayingCard):
 class AceCard(PlayingCard):
     def __init__(self, suit):
         self.suit = suit
+        self.value = self.get_value()
 
     def get_value(self):
         return 14
@@ -194,7 +198,7 @@ class Hand(list):
             self.append(i)
 
     def drop_cards(self,indList):
-        for i in range(indList):
+        for i in indList:
             self.pop(i)
 
     def sort(self):
