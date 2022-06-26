@@ -190,7 +190,7 @@ class StandardDeck(list):
     def __init__(self):
         for i in range(2,11):
             for j in Suit:
-                self.append(NumberedCard(j,i))
+                self.append(NumberedCard(i,j))
 
         for i in Suit:
             self.append(JackCard(i))
@@ -331,5 +331,3 @@ class StraightFlush(PokerHand):
             return True
         else:
             return False
-
-d  = StandardDeck()
