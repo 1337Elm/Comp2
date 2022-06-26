@@ -42,8 +42,8 @@ class PokerHand(ABC):
 
 class NumberedCard(PlayingCard):
     def __init__(self, value, suit):
-        self.suit = suit 
-        self.value = value
+        self.value = value 
+        self.suit = suit
 
     def get_value(self):
         return self.value
@@ -58,6 +58,9 @@ class NumberedCard(PlayingCard):
     def __lt__(self,other: object):
         if self.get_value() < other.get_value():
             return True
+        elif self.get_value() == other.get_value():
+            if self.suit.value < other.suit.value:
+                return True
         else:
             return False
 
@@ -79,6 +82,9 @@ class JackCard(PlayingCard):
     def __lt__(self,other: object):
         if self.get_value() < other.get_value():
             return True
+        elif self.get_value() == other.get_value():
+            if self.suit.value < other.suit.value:
+                return True
         else:
             return False
 
@@ -100,6 +106,9 @@ class QueenCard(PlayingCard):
     def __lt__(self,other: object):
         if self.get_value() < other.get_value():
             return True
+        elif self.get_value() == other.get_value():
+            if self.suit.value < other.suit.value:
+                return True
         else:
             return False
 
@@ -121,6 +130,9 @@ class KingCard(PlayingCard):
     def __lt__(self,other: object):
         if self.get_value() < other.get_value():
             return True
+        elif self.get_value() == other.get_value():
+            if self.suit.value < other.suit.value:
+                return True
         else:
             return False
 
@@ -142,6 +154,9 @@ class AceCard(PlayingCard):
     def __lt__(self,other: object):
         if self.get_value() < other.get_value():
             return True
+        elif self.get_value() == other.get_value():
+            if self.suit.value < other.suit.value:
+                return True
         else:
             return False
 
@@ -157,9 +172,8 @@ class Hand(list):
     def __init__(self,cards = []):
         self.cards = cards
         
-    def add_card(self,CardsToAdd = []):
-        for i in CardsToAdd:
-            self.append(i)
+    def add_card(self,CardsToAdd):
+        self.append(CardsToAdd)
 
     def drop_cards(self,indList):
         for i in indList:
@@ -317,3 +331,5 @@ class StraightFlush(PokerHand):
             return True
         else:
             return False
+
+d  = StandardDeck()

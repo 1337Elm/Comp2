@@ -94,4 +94,4 @@ def test_pokerhands():
     ph5 = h1.best_poker_hand(cl)
     # assert # Check ph5 handtype class and data here>
 
-test_cards()
+test_pokerhands()
