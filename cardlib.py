@@ -208,8 +208,8 @@ class StandardDeck(list):
 
 
 class PokerHand(list):
-    def __init__(self):
-        pass
+    def __init__(self, cards = []):
+        self.cards = cards
 
     def straight_flush(self,cards =  []):
         pass
@@ -224,15 +224,49 @@ class PokerHand(list):
         pass
 
     def straight(self,cards = []):
-        pass
+        counter = 0
+        for i in cards:
+            for j in range(i+1,len(cards)):
+                if i.suit == cards[j].suit:
+                    counter += 1
+            if counter == 5:
+                return True
+            else:
+                counter = 0
+        
+        return False
 
     def threeKind(self,cards = []):
-        pass
+        counter = 0
+        for i in cards:
+            for j in range(i+1,len(cards)):
+                if i.get_value() == cards[j].get_value():
+                    counter += 1
+        
+        if counter == 3:
+            return True
+        else:
+            return False
 
     def twoPair(self,cards = []):
-        pass
+        pairs = 0
+        for i in cards:
+            for j in range(i+1,len(cards)):
+                if i.get_value()==cards[j].get_value():
+                    pairs += 1
+                    break
+                break
+        
+        if pairs == 2:
+            return True
+        else:
+            return False
 
     def Pair(self,cards = []):
         for i in cards:
-            for j in cards:
-                
+            for j in range(i+1,len(cards)):
+                if i.get_value()==cards[j].get_value():
+                    return True
+        
+        return False
+    
