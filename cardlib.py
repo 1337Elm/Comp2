@@ -183,7 +183,7 @@ class Hand(list):
         self.sort()
 
     def best_poker_hand(self,cards = []):
-        pass
+       pass
 
 
 class StandardDeck(list):
@@ -210,3 +210,29 @@ class StandardDeck(list):
 class PokerHand(list):
     def __init__(self):
         pass
+
+    def straight_flush(self,cards =  []):
+        pass
+
+    def fourKind(self,cards=[]):
+        pass
+
+    def full_house(self,cards = []):
+        pass
+
+    def flush(self,cards = []):
+        pass
+
+    def straight(self,cards = []):
+        pass
+
+    def threeKind(self,cards = []):
+        pass
+
+    def twoPair(self,cards = []):
+        pass
+
+    def Pair(self,cards = []):
+        for i in cards:
+            for j in cards:
+                
