@@ -26,20 +26,6 @@ class PlayingCard(ABC):
         pass
 
 
-class PokerHand(ABC):
-    @abstractmethod
-    def __init__(self,cards = []):
-        pass
-
-    @abstractmethod
-    def get_value(self):
-        pass
-
-    @abstractmethod
-    def __lt__(self,other: object):
-        pass
-
-
 class NumberedCard(PlayingCard):
     def __init__(self, value, suit):
         self.value = value 
@@ -207,127 +193,82 @@ class StandardDeck(list):
         return(self.pop(0))
 
 
-class HighCard(PokerHand):
-    def __init__(self, cards=[]):
+class PokerHand(object):
+    def __init__(self, cards = []):
         self.cards = cards
 
-    def get_value(self):
-        return 1
+    def straight_flush(self,cards =  []):
+        pass
 
-    def __lt__(self,other: object):
-        if self.get_value() < other.get_value():
-            return True
+    def fourKind(self,cards=[]):
+        counter = 0
+        value = 0
+        for i in cards:
+            for j in range(i+1,len(cards)):
+                if i.get_value() == cards[j].get_value():
+                    counter += 1
+                    value = i.get_value()
+        
+        if counter == 4:
+            return value
         else:
             return False
 
+    def full_house(self,cards = []):
+        pass
 
-class Pair(PokerHand):
-    def __init__(self, cards=[]):
-        self.cards = cards
+    def flush(self,cards = []):
+        pass
 
-    def get_value(self):
-        return 2
+    def straight(self,cards = []):
+        counter = 0
+        value = 0
+        for i in cards:
+            for j in range(i+1,len(cards)):
+                if i.suit == cards[j].suit:
+                    counter += 1
+                    value = i.suit.value
+            if counter == 5:
+                return value
+            else:
+                counter = 0
+        
+        return False
 
-    def __lt__(self,other: object):
-        if self.get_value() < other.get_value():
-            return True
+    def threeKind(self,cards = []):
+        counter = 0
+        value = []
+        for i in cards:
+            for j in range(i+1,len(cards)):
+                if i.get_value() == cards[j].get_value():
+                    counter += 1
+                    value.appen(i.get_value())
+        
+        if counter == 3:
+            return max(value)
         else:
             return False
 
-
-class TwoPair(PokerHand):
-    def __init__(self, cards=[]):
-        self.cards = cards
-
-    def get_value():
-        return 3
-
-    def __lt__(self,other: object):
-        if self.get_value() < other.get_value():
-            return True
-        else:
-            return False
-    
-
-class ThreeOfaKind(PokerHand):
-    def __init__(self, cards=[]):
-        self.cards = cards
-
-    def get_value():
-        return 4
-
-    def __lt__(self,other: object):
-        if self.get_value() < other.get_value():
-            return True
+    def twoPair(self,cards = []):
+        pairs = 0
+        value = []
+        for i in cards:
+            for j in range(i+1,len(cards)):
+                if i.get_value()==cards[j].get_value():
+                    pairs += 1
+                    value.append(i.get_value())
+                    break
+                break
+        
+        if pairs == 2:
+            return max(value)
         else:
             return False
 
-
-class Straight(PokerHand):
-    def __init__(self,cards = []):
-        self.cards = cards
-
-    def get_value(self):
-        return 5
-
-    def __lt__(self,other: object):
-        if self.get_value() < other.get_value():
-            return True
-        else:
-            return False
-
-
-class Flush(PokerHand):
-    def __init__(self,cards = []):
-        self.cards = cards
-
-    def get_value(self):
-        return 6
-
-    def __lt__(self,other: object):
-        if self.get_value() < other.get_value():
-            return True
-        else:
-            return False
-
-
-class FullHouse(PokerHand):
-    def __init__(self,cards = []):
-        self.cards = cards
-
-    def get_value(self):
-        return 7
-
-    def __lt__(self,other: object):
-        if self.get_value() < other.get_value():
-            return True
-        else:
-            return False
-
-
-class FourOfaKind(PokerHand):
-    def __init__(self,cards = []):
-        self.cards = cards
-
-    def get_value(self):
-        return 8
-
-    def __lt__(self,other: object):
-        if self.get_value() < other.get_value():
-            return True
-        else:
-            return False
-
-
-class StraightFlush(PokerHand):
-    def __init__(self,cards = []):
-        self.cards = cards
-
-    def get_value(self):
-        return 9
-
-    def __lt__(self,other: object):
-        if self.get_value() < other.get_value():
-            return True
-        else:
-            return False
+    def Pair(self,cards = []):
+        for i in cards:
+            for j in range(i+1,len(cards)):
+                if i.get_value()==cards[j].get_value():
+                    return i.get_value()
+        
+        return False
