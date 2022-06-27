@@ -169,7 +169,32 @@ class Hand(list):
         self.sort()
 
     def best_poker_hand(self,cards = []):
-       pass
+       hand = PokerHand(cards)
+       if hand.straight_flush():
+           return 
+       elif hand.fourKind():
+           return
+       elif hand.full_house():
+           return
+       elif hand.flush():
+           return
+       elif hand.straight():
+           return 
+       elif hand.threeKind():
+           return
+       elif hand.twoPair():
+           return
+       elif hand.Pair():
+           return
+       else:
+            value = cards[0].get_value(0)
+            for i in cards:
+                if cards[i].get_value() > value:
+                    value = cards[i].get_value()
+            
+            return value
+
+
 
 
 class StandardDeck(list):
@@ -202,15 +227,13 @@ class PokerHand(object):
 
     def fourKind(self,cards=[]):
         counter = 0
-        value = 0
         for i in cards:
             for j in range(i+1,len(cards)):
                 if i.get_value() == cards[j].get_value():
                     counter += 1
-                    value = i.get_value()
         
         if counter == 4:
-            return value
+            return True
         else:
             return False
 
@@ -222,14 +245,12 @@ class PokerHand(object):
 
     def straight(self,cards = []):
         counter = 0
-        value = 0
         for i in cards:
             for j in range(i+1,len(cards)):
                 if i.suit == cards[j].suit:
                     counter += 1
-                    value = i.suit.value
             if counter == 5:
-                return value
+                return True
             else:
                 counter = 0
         
@@ -237,31 +258,27 @@ class PokerHand(object):
 
     def threeKind(self,cards = []):
         counter = 0
-        value = []
         for i in cards:
             for j in range(i+1,len(cards)):
                 if i.get_value() == cards[j].get_value():
                     counter += 1
-                    value.appen(i.get_value())
         
         if counter == 3:
-            return max(value)
+            return True
         else:
             return False
 
     def twoPair(self,cards = []):
         pairs = 0
-        value = []
         for i in cards:
             for j in range(i+1,len(cards)):
                 if i.get_value()==cards[j].get_value():
                     pairs += 1
-                    value.append(i.get_value())
                     break
                 break
         
         if pairs == 2:
-            return max(value)
+            return True
         else:
             return False
 
@@ -269,6 +286,6 @@ class PokerHand(object):
         for i in cards:
             for j in range(i+1,len(cards)):
                 if i.get_value()==cards[j].get_value():
-                    return i.get_value()
+                    return True
         
         return False
