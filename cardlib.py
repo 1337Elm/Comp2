@@ -164,7 +164,7 @@ class Hand(list):
 
     def drop_cards(self,indList):
         for i in indList:
-            self.pop(i)
+            self.cards.pop(i)
 
     def sort(self):
         self.cards.sort()
