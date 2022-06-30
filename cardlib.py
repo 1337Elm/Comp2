@@ -174,7 +174,8 @@ class Hand(list):
         self.cards.sort()
 
     def best_poker_hand(self,cards = []):
-        if Straight_flush(cards):
+        self.cards.append(cards)
+        if Straight_flush(self.cards):
             return Straight_flush(cards)
         elif FourKind(cards):
             return FourKind(cards)
@@ -237,6 +238,7 @@ class Straight_flush(PokerHand):
     def __init__(self,cards = []):
         self.cards = cards
         self.hand = []
+        print(cards)
 
         cards.sort()
         counter = 0
