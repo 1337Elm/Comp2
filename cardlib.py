@@ -160,11 +160,15 @@ class Hand(list):
         self.cards = cards
         
     def add_card(self,CardsToAdd):
-        self.append(CardsToAdd)
+        self.cards.append(CardsToAdd)
 
     def drop_cards(self,indList):
+        items = [] 
         for i in indList:
-            self.cards.pop(i)
+            items.append(self.cards[i])
+        
+        for i in items:
+            self.cards.remove(i)
 
     def sort(self):
         self.cards.sort()
