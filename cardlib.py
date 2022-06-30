@@ -158,8 +158,9 @@ class Suit(Enum):
 class Hand(list):
     def __init__(self,cards = []):
         self.cards = []
-        self.cards.append(cards)
-        
+        if cards:
+            self.cards.append(cards) 
+
     def add_card(self,CardsToAdd):
         self.cards.append(CardsToAdd)
 
@@ -175,25 +176,27 @@ class Hand(list):
         self.cards.sort()
 
     def best_poker_hand(self,cards = []):
-        self.cards.append(cards)
+        for i in cards:
+            self.cards.append(i)
+
         if Straight_flush(self.cards):
-            return Straight_flush(cards)
-        elif FourKind(cards):
-            return FourKind(cards)
-        elif FullHouse(cards):
-            return FullHouse(cards)
-        elif Flush(cards):
-            return Flush(cards)
-        elif Straight(cards):
-            return Straight(cards)
-        elif ThreeKind(cards):
-            return ThreeKind(cards)
-        elif TwoPair(cards):
-            return TwoPair(cards)
-        elif Pair(cards):
-            return Pair(cards)
+            return Straight_flush(self.cards)
+        elif FourKind(self.cards):
+            return FourKind(self.cards)
+        elif FullHouse(self.cards):
+            return FullHouse(self.cards)
+        elif Flush(self.cards):
+            return Flush(self.cards)
+        elif Straight(self.cards):
+            return Straight(self.cards)
+        elif ThreeKind(self.cards):
+            return ThreeKind(self.cards)
+        elif TwoPair(self.cards):
+            return TwoPair(self.cards)
+        elif Pair(self.cards):
+            return Pair(self.cards)
         else:
-            return HighCard(cards)
+            return HighCard(self.cards)
 
 
 class StandardDeck(list):
@@ -240,11 +243,12 @@ class Straight_flush(PokerHand):
         self.cards = cards
         self.hand = []
 
-        cards.sort()
+        self.cards.sort()
+        print(len(self.cards))
         counter = 0
         for i in cards:
             self.hand.append(i)
-            for j in range(i,len(cards)-1):
+            for j in range(i,len(self.cards)-1):
                 if cards[j].get_value() + 1 == cards[j+1].get_value():
                     counter += 1
                     self.hand.append(cards[j+1])
