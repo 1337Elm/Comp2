@@ -157,7 +157,8 @@ class Suit(Enum):
 
 class Hand(list):
     def __init__(self,cards = []):
-        self.cards = cards
+        self.cards = []
+        self.cards.append(cards)
         
     def add_card(self,CardsToAdd):
         self.cards.append(CardsToAdd)
@@ -238,7 +239,6 @@ class Straight_flush(PokerHand):
     def __init__(self,cards = []):
         self.cards = cards
         self.hand = []
-        print(cards)
 
         cards.sort()
         counter = 0

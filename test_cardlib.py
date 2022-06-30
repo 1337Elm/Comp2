@@ -69,29 +69,32 @@ def test_pokerhands():
     h2.add_card(QueenCard(Suit.Hearts))
     h2.add_card(AceCard(Suit.Hearts))
 
-    cl = [NumberedCard(10, Suit.Diamonds), NumberedCard(9, Suit.Diamonds),
-          NumberedCard(8, Suit.Clubs), NumberedCard(6, Suit.Spades)]
+    print(h2.cards)
+    print(h1.cards)
 
-    ph1 = h1.best_poker_hand(cl)
-    assert isinstance(ph1, PokerHand)
-    ph2 = h2.best_poker_hand(cl)
+    #cl = [NumberedCard(10, Suit.Diamonds), NumberedCard(9, Suit.Diamonds),
+    #      NumberedCard(8, Suit.Clubs), NumberedCard(6, Suit.Spades)]
+
+    #ph1 = h1.best_poker_hand(cl)
+    #assert isinstance(ph1, PokerHand)
+    #ph2 = h2.best_poker_hand(cl)
     # assert # Check ph1 handtype class and data here>
     # assert # Check ph2 handtype class and data here>
 
-    assert ph1 < ph2
+    #assert ph1 < ph2
 
-    cl.pop(0)
-    cl.append(QueenCard(Suit.Spades))
-    ph3 = h1.best_poker_hand(cl)
-    ph4 = h2.best_poker_hand(cl)
-    assert ph3 < ph4
-    assert ph1 < ph2
+    #cl.pop(0)
+    #cl.append(QueenCard(Suit.Spades))
+    #ph3 = h1.best_poker_hand(cl)
+    #ph4 = h2.best_poker_hand(cl)
+    #assert ph3 < ph4
+    #assert ph1 < ph2
 
     # assert # Check ph3 handtype class and data here>
     # assert # Check ph4 handtype class and data here>
 
-    cl = [QueenCard(Suit.Clubs), QueenCard(Suit.Spades), KingCard(Suit.Clubs), KingCard(Suit.Spades)]
-    ph5 = h1.best_poker_hand(cl)
+    #cl = [QueenCard(Suit.Clubs), QueenCard(Suit.Spades), KingCard(Suit.Clubs), KingCard(Suit.Spades)]
+    #ph5 = h1.best_poker_hand(cl)
     # assert # Check ph5 handtype class and data here>
 
 test_pokerhands()
