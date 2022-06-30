@@ -1,11 +1,11 @@
 """
 Python library for a game of poker. Consists of Card-classes (NumberedCard, JackCard, QueenCard, KingCard and AceCard).
-Aswell as a Enum Suit class, Hand class, StandardDeck class and finally a Pokerhand class.
+Aswell as a Enum Suit class, Hand class, StandardDeck class and finally a Pokerhand abstract class with subclasses for
+all types of pokerhands available.
 
 Author: Benjamin Elm Jonsson 2022, benjamin.elmjonsson@gmail.com
 """
 from abc import ABC,abstractmethod
-from cgitb import handler
 from enum import Enum
 import random
 
@@ -238,8 +238,29 @@ class Straight_flush(PokerHand):
         self.cards = cards
         self.hand = []
 
-
-        #Condition for Straight_flush. if true return true
+        cards.sort()
+        counter = 0
+        for i in cards:
+            self.hand.append(i)
+            for j in range(i,len(cards)-1):
+                if cards[j].get_value() + 1 == cards[j+1].get_value():
+                    counter += 1
+                    self.hand.append(cards[j+1])
+            if counter == 5:
+                counter = 0
+                for i in self.hand:
+                    for j in range(i+1,len(cards)):
+                        if i.suit == cards[j].suit:
+                            counter += 1
+                    if counter == 5:
+                        return True
+                    else:
+                        counter = 0
+            else:
+                counter = 0
+                self.hand.clear()
+        
+        return False
     
     def get_value(self):
         return 9
@@ -350,7 +371,21 @@ class Flush(PokerHand):
         self.cards = cards
         self.hand = []
 
-        #Condition for Flush return true, define hand for eigen_value()
+        cards.sort()
+        counter = 0
+        for i in cards:
+            self.hand.append(i)
+            for j in range(i,len(cards)-1):
+                if cards[j].get_value() + 1 == cards[j+1].get_value():
+                    counter += 1
+                    self.hand.append(cards[j+1])
+            if counter == 5:
+                return True
+            else:
+                counter = 0
+                self.hand.clear()
+        
+        return False
 
     def get_value(self):
         return 6
