@@ -179,22 +179,30 @@ class Hand(list):
         for i in cards:
             self.cards.append(i)
 
-        if Straight_flush(self.cards):
+        if Straight_flush(self.cards).is_True():
             return Straight_flush(self.cards)
-        elif FourKind(self.cards):
+
+        elif FourKind(self.cards).is_True():
             return FourKind(self.cards)
-        elif FullHouse(self.cards):
+
+        elif FullHouse(self.cards).is_True():
             return FullHouse(self.cards)
-        elif Flush(self.cards):
+
+        elif Flush(self.cards).is_True():
             return Flush(self.cards)
-        elif Straight(self.cards):
+
+        elif Straight(self.cards).is_True():
             return Straight(self.cards)
-        elif ThreeKind(self.cards):
+
+        elif ThreeKind(self.cards).is_True():
             return ThreeKind(self.cards)
-        elif TwoPair(self.cards):
+
+        elif TwoPair(self.cards).is_True():
             return TwoPair(self.cards)
-        elif Pair(self.cards):
+
+        elif Pair(self.cards).is_True():
             return Pair(self.cards)
+            
         else:
             return HighCard(self.cards)
 
@@ -224,6 +232,10 @@ class PokerHand(ABC):
     @abstractmethod
     def __init__(self, cards = []):
         self.cards = cards
+    
+    @abstractmethod
+    def is_True(self):
+        pass
 
     @abstractmethod
     def get_value(self):
@@ -243,20 +255,21 @@ class Straight_flush(PokerHand):
         self.cards = cards
         self.hand = []
 
+    def is_True(self):
         self.cards.sort()
-        print(len(self.cards))
         counter = 0
-        for i in cards:
-            self.hand.append(i)
+        print(len(self.cards)-1)
+        for i in range(len(self.cards)):
+            self.hand.append(self.cards[i])
             for j in range(i,len(self.cards)-1):
-                if cards[j].get_value() + 1 == cards[j+1].get_value():
+                if self.cards[j].get_value() + 1 == self.cards[j+1].get_value():
                     counter += 1
-                    self.hand.append(cards[j+1])
+                    self.hand.append(self.cards[j+1])
             if counter == 5:
                 counter = 0
                 for i in self.hand:
-                    for j in range(i+1,len(cards)):
-                        if i.suit == cards[j].suit:
+                    for j in range(i+1,len(self.cards)):
+                        if i.suit == self.cards[j].suit:
                             counter += 1
                     if counter == 5:
                         return True
@@ -292,13 +305,14 @@ class FourKind(PokerHand):
         self.cards = cards
         self.hand = []
 
+    def is_True(self):
         counter = 0
-        for i in cards:
+        for i in self.cards:
             self.hand.append(i)
-            for j in range(i+1,len(cards)):
-                if i.get_value() == cards[j].get_value():
+            for j in range(i+1,len(self.cards)):
+                if i.get_value() == self.cards[j].get_value():
                     counter += 1
-                    self.hand.append(cards[j])
+                    self.hand.append(self.cards[j])
             if counter != 4:
                 counter = 0
                 self.hand.clear()
@@ -306,7 +320,7 @@ class FourKind(PokerHand):
         if counter == 4:
             return True
         else:
-            return False
+            return False       
 
     def get_value(self):
         return 8
@@ -330,22 +344,23 @@ class FullHouse(PokerHand):
     def __init__(self,cards = []):
         self.cards = cards
         self.hand = []
-
+    
+    def is_True(self):
         counterTripple = 0
         counterPair = 0
-        for i in cards:
+        for i in self.cards:
             self.hand.append(i)
-            for j in range(i+1,len(cards)):
-                if i.get_value() == cards[j].get_value():
+            for j in range(i+1,len(self.cards)):
+                if i.get_value() == self.cards[j].get_value():
                     counterTripple +=1
-                    self.hand.append(cards[j])
+                    self.hand.append(self.cards[j])
             if counterTripple == 3:
                 for i in self.hand:
-                    cards.pop(i)
+                    self.cards.pop(i)
         
-                for i in cards:
-                    for j in range(i+1,len(cards)):
-                        if i.get_value() == cards[j].get_value():
+                for i in self.cards:
+                    for j in range(i+1,len(self.cards)):
+                        if i.get_value() == self.cards[j].get_value():
                             counterPair += 1
                     
                 if counterPair == 1:
@@ -377,14 +392,15 @@ class Flush(PokerHand):
         self.cards = cards
         self.hand = []
 
-        cards.sort()
+    def is_True(self):
+        self.cards.sort()
         counter = 0
-        for i in cards:
+        for i in self.cards:
             self.hand.append(i)
-            for j in range(i,len(cards)-1):
-                if cards[j].get_value() + 1 == cards[j+1].get_value():
+            for j in range(i,len(self.cards)-1):
+                if self.cards[j].get_value() + 1 == self.cards[j+1].get_value():
                     counter += 1
-                    self.hand.append(cards[j+1])
+                    self.hand.append(self.cards[j+1])
             if counter == 5:
                 return True
             else:
@@ -417,13 +433,14 @@ class Straight(PokerHand):
         self.cards = cards
         self.hand = []
 
+    def is_True(self):
         counter = 0
-        for i in cards:
+        for i in self.cards:
             self.hand.append(i)
-            for j in range(i+1,len(cards)):
-                if i.suit == cards[j].suit:
+            for j in range(i+1,len(self.cards)):
+                if i.suit == self.cards[j].suit:
                     counter += 1
-                    self.hand.append(cards[j])
+                    self.hand.append(self.cards[j])
             if counter == 5:
                 return True
             else:
@@ -455,13 +472,14 @@ class ThreeKind(PokerHand):
         self.cards = cards
         self.hand = []
 
+    def is_True(self):
         counter = 0
-        for i in cards:
+        for i in self.cards:
             self.hand.append(i)
-            for j in range(i+1,len(cards)):
-                if i.get_value() == cards[j].get_value():
+            for j in range(i+1,len(self.cards)):
+                if i.get_value() == self.cards[j].get_value():
                     counter += 1
-                    self.hand.append(cards[j])
+                    self.hand.append(self.cards[j])
                     break        
             if counter == 3:
                 return True
@@ -494,13 +512,14 @@ class TwoPair(PokerHand):
         self.cards = cards
         self.hand = []
 
+    def is_True(self):
         pairs = 0
-        for i in cards:
+        for i in self.cards:
             self.hand.append(i)
-            for j in range(i+1,len(cards)):
-                if i.get_value()==cards[j].get_value():
+            for j in range(i+1,len(self.cards)):
+                if i.get_value() == self.cards[j].get_value():
                     pairs += 1
-                    self.hand.append(cards[j])
+                    self.hand.append(self.cards[j])
                 else:
                     self.hand.pop(i)
         
@@ -536,13 +555,17 @@ class Pair(PokerHand):
         self.cards = cards
         self.hand = []
 
-        for i in cards:
+    def is_True(self):
+        for i in self.cards:
             self.hand.append(i)
-            for j in range(i+1,len(cards)):
-                if i.get_value()==cards[j].get_value():
-                    self.hand.append(cards[j])
+            for j in range(i+1,len(self.cards)):
+                if i.get_value() == self.cards[j].get_value():
+                    self.hand.append(self.cards[j])
+                    for u in self.hand:
+                        self.cards.remove(u)
+                    self.cards.sort()
                     return True
-            self.hand.clear()
+                self.hand.clear()
         return False
 
     def get_value(self):
@@ -557,8 +580,13 @@ class Pair(PokerHand):
         elif self.get_value() == other.get_value():
             if self.eigen_value() < other.eigen_value():
                 return True
-            else:
-                return False
+            elif self.eigen_value() == other.eigen_value():
+                if self.cards[-1].get_value() < self.cards[-1].get_value():
+                    return True
+                else:
+                    return False
+                
+            return False
         else:
             return False
 
