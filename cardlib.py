@@ -167,7 +167,7 @@ class Hand(list):
             self.pop(i)
 
     def sort(self):
-        self.sort()
+        self.cards.sort()
 
     def best_poker_hand(self,cards = []):
         if Straight_flush(cards):
@@ -230,9 +230,10 @@ class PokerHand(ABC):
 
 
 class Straight_flush(PokerHand):
-    def __init__(self, cards []):
+    def __init__(self,cards = []):
         self.cards = cards
         self.hand = []
+
 
         #Condition for Straight_flush. if true return true
     
