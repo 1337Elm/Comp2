@@ -75,8 +75,8 @@ def test_pokerhands():
     ph1 = h1.best_poker_hand(cl)
     assert isinstance(ph1, PokerHand)
     ph2 = h2.best_poker_hand(cl)
-    # assert # Check ph1 handtype class and data here>
-    # assert # Check ph2 handtype class and data here>
+    assert isinstance(ph1,HighCard) # Check ph1 handtype class and data here>
+    assert isinstance(ph2,HighCard)# Check ph2 handtype class and data here>
 
     assert ph1 < ph2
 
@@ -87,11 +87,11 @@ def test_pokerhands():
     assert ph3 < ph4
     assert ph1 < ph2
 
-    # assert # Check ph3 handtype class and data here>
-    # assert # Check ph4 handtype class and data here>
+    assert isinstance(ph3,Pair)# Check ph3 handtype class and data here>
+    assert isinstance(ph4,Pair) # Check ph4 handtype class and data here>
 
     cl = [QueenCard(Suit.Clubs), QueenCard(Suit.Spades), KingCard(Suit.Clubs), KingCard(Suit.Spades)]
     ph5 = h1.best_poker_hand(cl)
-    # assert # Check ph5 handtype class and data here>
+    assert isinstance(ph5,FullHouse) # Check ph5 handtype class and data here>
 
 test_pokerhands()

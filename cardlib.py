@@ -341,18 +341,15 @@ class FourKind(PokerHand):
         self.hand = []
 
     def is_True(self):
-        counter = 0
         for i in range(len(self.cards)):
             self.hand.append(self.cards[i])
             for j in range(i+1,len(self.cards)):
-                if self.cards[i].get_value() == self.cards[j].get_value():
-                    counter += 1
+                if self.hand[0].get_value() == self.cards[j].get_value():
                     self.hand.append(self.cards[j])
-            if counter != 4:
-                counter = 0
+            if len(self.hand) != 4:
                 self.hand.clear()
         
-        if counter == 4:
+        if len(self.hand) == 4:
             return True
         else:
             return False       
@@ -361,18 +358,15 @@ class FourKind(PokerHand):
         return 8
 
     def eigen_value(self):
-        counter = 0
         for i in range(len(self.cards)):
             self.hand.append(self.cards[i])
             for j in range(i+1,len(self.cards)):
-                if self.cards[i].get_value() == self.cards[j].get_value():
-                    counter += 1
+                if self.hand[0].get_value() == self.cards[j].get_value():
                     self.hand.append(self.cards[j])
-            if counter != 4:
-                counter = 0
+            if len(self.hand) != 4:
                 self.hand.clear()
         
-        if counter == 4:
+        if len(self.hand) == 4:
             return self.hand[0].get_value()
 
     def __lt__(self,other: object):
@@ -393,54 +387,46 @@ class FullHouse(PokerHand):
         self.hand = []
     
     def is_True(self):
-        counterTripple = 0
-        counterPair = 0
-        for i in range(len(self.cards)):
+        self.cards.sort()
+        self.cards.reverse()
+        for i in range(len(self.cards)-1):
             self.hand.append(self.cards[i])
             for j in range(i+1,len(self.cards)):
-                if self.cards[i].get_value() == self.cards[j].get_value():
-                    counterTripple +=1
+                if self.hand[0].get_value() == self.cards[j].get_value():
                     self.hand.append(self.cards[j])
-            if counterTripple == 3:
+            if len(self.hand) == 3:
                 for i in self.hand:
                     self.cards.remove(i)
         
                 for i in range(len(self.cards)):
                     for j in range(i+1,len(self.cards)):
                         if self.cards[i].get_value() == self.cards[j].get_value():
-                            counterPair += 1
-                    
-                if counterPair == 1:
-                    return True
+                            return True
             else:
-                counterTripple = 0
                 self.hand.clear()
+        
+        return False
 
     def get_value(self):
         return 7
 
     def eigen_value(self):
-        counterTripple = 0
-        counterPair = 0
-        for i in range(len(self.cards)):
+        self.cards.sort()
+        self.cards.reverse()
+        for i in range(len(self.cards)-1):
             self.hand.append(self.cards[i])
             for j in range(i+1,len(self.cards)):
-                if self.cards[i].get_value() == self.cards[j].get_value():
-                    counterTripple +=1
+                if self.hand[0].get_value() == self.cards[j].get_value():
                     self.hand.append(self.cards[j])
-            if counterTripple == 3:
+            if len(self.hand) == 3:
                 for i in self.hand:
                     self.cards.remove(i)
         
                 for i in range(len(self.cards)):
                     for j in range(i+1,len(self.cards)):
                         if self.cards[i].get_value() == self.cards[j].get_value():
-                            counterPair += 1
-                    
-                if counterPair == 1:
-                    return self.hand[0].get_value()
+                            return self.hand[0].get_value()
             else:
-                counterTripple = 0
                 self.hand.clear()
 
     def __lt__(self,other: object):
@@ -564,18 +550,14 @@ class ThreeKind(PokerHand):
         self.hand = []
 
     def is_True(self):
-        counter = 0
         for i in range(len(self.cards)):
             self.hand.append(self.cards[i])
             for j in range(i+1,len(self.cards)):
-                if self.cards[i].get_value() == self.cards[j].get_value():
-                    counter += 1
-                    self.hand.append(self.cards[j])
-                    break        
-            if counter == 3:
+                if self.hand[0].get_value() == self.cards[j].get_value():
+                    self.hand.append(self.cards[j])       
+            if len(self.hand) == 3:
                 return True
             else:
-                counter = 0
                 self.hand.clear()
         
         return False
@@ -584,18 +566,14 @@ class ThreeKind(PokerHand):
         return 4
 
     def eigen_value(self):
-        counter = 0
         for i in range(len(self.cards)):
             self.hand.append(self.cards[i])
             for j in range(i+1,len(self.cards)):
-                if self.cards[i].get_value() == self.cards[j].get_value():
-                    counter += 1
-                    self.hand.append(self.cards[j])
-                    break        
-            if counter == 3:
+                if self.hand[0].get_value() == self.cards[j].get_value():
+                    self.hand.append(self.cards[j])       
+            if len(self.hand) == 3:
                 return self.hand[0].get_value()
             else:
-                counter = 0
                 self.hand.clear()
 
     def __lt__(self,other: object):
@@ -623,8 +601,6 @@ class TwoPair(PokerHand):
                 if self.cards[i].get_value() == self.cards[j].get_value():
                     pairs += 1
                     self.hand.append(self.cards[j])
-                else:
-                    self.hand.clear()
         
         if pairs == 2:
             return True
