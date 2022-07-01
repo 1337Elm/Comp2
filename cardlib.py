@@ -351,7 +351,7 @@ class FullHouse(PokerHand):
                     self.hand.append(self.cards[j])
             if counterTripple == 3:
                 for i in self.hand:
-                    self.cards.pop(i)
+                    self.cards.remove(i)
         
                 for i in range(len(self.cards)):
                     for j in range(i+1,len(self.cards)):
