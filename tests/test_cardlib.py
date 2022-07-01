@@ -93,5 +93,3 @@ def test_pokerhands():
     #cl = [QueenCard(Suit.Clubs), QueenCard(Suit.Spades), KingCard(Suit.Clubs), KingCard(Suit.Spades)]
     #ph5 = h1.best_poker_hand(cl)
     #assert isinstance(ph5,FullHouse) # Check ph5 handtype class and data here>
-
-test_pokerhands()
