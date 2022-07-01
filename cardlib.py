@@ -300,8 +300,28 @@ class Straight_flush(PokerHand):
         return 9
 
     def eigen_value(self):
-        self.hand.sort()
-        return self.hand[-1].get_value()
+        self.cards.sort()
+        counter = 0
+        for i in range(len(self.cards)):
+            self.hand.append(self.cards[i])
+            for j in range(i,len(self.cards)-1):
+                if self.cards[j].get_value() + 1 == self.cards[j+1].get_value():
+                    counter += 1
+                    self.hand.append(self.cards[j+1])
+            if counter == 5:
+                counter = 0
+                for i in self.hand:
+                    for j in range(i+1,len(self.cards)):
+                        if i.suit == self.cards[j].suit:
+                            counter += 1
+                    if counter == 5:
+                        self.hand.sort()
+                        return self.hand[-1].get_value()
+                    else:
+                        counter = 0
+            else:
+                counter = 0
+                self.hand.clear()
 
     def __lt__(self,other: object):
         if self.get_value() < other.get_value():
@@ -341,7 +361,19 @@ class FourKind(PokerHand):
         return 8
 
     def eigen_value(self):
-        return self.hand[0].get_value()
+        counter = 0
+        for i in range(len(self.cards)):
+            self.hand.append(self.cards[i])
+            for j in range(i+1,len(self.cards)):
+                if self.cards[i].get_value() == self.cards[j].get_value():
+                    counter += 1
+                    self.hand.append(self.cards[j])
+            if counter != 4:
+                counter = 0
+                self.hand.clear()
+        
+        if counter == 4:
+            return self.hand[0].get_value()
 
     def __lt__(self,other: object):
         if self.get_value() < other.get_value():
@@ -388,7 +420,28 @@ class FullHouse(PokerHand):
         return 7
 
     def eigen_value(self):
-        return self.hand[0].get_value()
+        counterTripple = 0
+        counterPair = 0
+        for i in range(len(self.cards)):
+            self.hand.append(self.cards[i])
+            for j in range(i+1,len(self.cards)):
+                if self.cards[i].get_value() == self.cards[j].get_value():
+                    counterTripple +=1
+                    self.hand.append(self.cards[j])
+            if counterTripple == 3:
+                for i in self.hand:
+                    self.cards.remove(i)
+        
+                for i in range(len(self.cards)):
+                    for j in range(i+1,len(self.cards)):
+                        if self.cards[i].get_value() == self.cards[j].get_value():
+                            counterPair += 1
+                    
+                if counterPair == 1:
+                    return self.hand[0].get_value()
+            else:
+                counterTripple = 0
+                self.hand.clear()
 
     def __lt__(self,other: object):
         if self.get_value() < other.get_value():
@@ -428,8 +481,20 @@ class Flush(PokerHand):
         return 6
 
     def eigen_value(self):
-        self.hand.sort()
-        return self.hand[-1].get_value()
+        self.cards.sort()
+        counter = 0
+        for i in range(len(self.cards)):
+            self.hand.append(self.cards[i])
+            for j in range(i,len(self.cards)-1):
+                if self.cards[j].get_value() + 1 == self.cards[j+1].get_value():
+                    counter += 1
+                    self.hand.append(self.cards[j+1])
+            if counter == 5:
+                self.hand.sort()
+                return self.hand[-1].get_value()
+            else:
+                counter = 0
+                self.hand.clear()
 
     def __lt__(self,other: object):
         if self.get_value() < other.get_value():
@@ -468,7 +533,18 @@ class Straight(PokerHand):
         return 5
 
     def eigen_value(self):
-        return self.hand[0].suit.value
+        counter = 0
+        for i in range(len(self.cards)):
+            self.hand.append(self.cards[i])
+            for j in range(i+1,len(self.cards)):
+                if self.cards[i].suit == self.cards[j].suit:
+                    counter += 1
+                    self.hand.append(self.cards[j])
+            if counter == 5:
+                return self.hand[0].suit.value
+            else:
+                counter = 0
+                self.hand.clear()
 
     def __lt__(self,other: object):
         if self.get_value() < other.get_value():
@@ -508,7 +584,19 @@ class ThreeKind(PokerHand):
         return 4
 
     def eigen_value(self):
-        return self.hand[0].get_value()
+        counter = 0
+        for i in range(len(self.cards)):
+            self.hand.append(self.cards[i])
+            for j in range(i+1,len(self.cards)):
+                if self.cards[i].get_value() == self.cards[j].get_value():
+                    counter += 1
+                    self.hand.append(self.cards[j])
+                    break        
+            if counter == 3:
+                return self.hand[0].get_value()
+            else:
+                counter = 0
+                self.hand.clear()
 
     def __lt__(self,other: object):
         if self.get_value() < other.get_value():
@@ -550,6 +638,15 @@ class TwoPair(PokerHand):
         return 3
 
     def eigen_value(self):
+        pairs = 0
+        for i in range(len(self.cards)):
+            self.hand.append(self.cards[i])
+            for j in range(i+1,len(self.cards)):
+                if self.cards[i].get_value() == self.cards[j].get_value():
+                    pairs += 1
+                    self.hand.append(self.cards[j])
+                else:
+                    self.hand.clear()
         self.hand.sort()
         return self.hand[-1].get_value()
 
@@ -616,7 +713,6 @@ class Pair(PokerHand):
 class HighCard(PokerHand):
     def __init__(self,cards = []):
         self.cards = cards
-
         cards.sort()
     
     def get_value(self):
