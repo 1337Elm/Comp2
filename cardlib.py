@@ -176,35 +176,38 @@ class Hand(list):
         self.cards.sort()
 
     def best_poker_hand(self,cards = []):
+        list = []
+        for i in self.cards:
+            list.append(i)
         for i in cards:
-            self.cards.append(i)
+            list.append(i)
 
-        if Straight_flush(self.cards).is_True():
-            return Straight_flush(self.cards)
+        if Straight_flush(list).is_True():
+            return Straight_flush(list)
 
-        elif FourKind(self.cards).is_True():
-            return FourKind(self.cards)
-
-        elif FullHouse(self.cards).is_True():
-            return FullHouse(self.cards)
-
-        elif Flush(self.cards).is_True():
-            return Flush(self.cards)
-
-        elif Straight(self.cards).is_True():
-            return Straight(self.cards)
-
-        elif ThreeKind(self.cards).is_True():
-            return ThreeKind(self.cards)
-
-        elif TwoPair(self.cards).is_True():
-            return TwoPair(self.cards)
-
-        elif Pair(self.cards).is_True():
-            return Pair(self.cards)
-
+        elif FourKind(list).is_True():
+            return FourKind(list)
+        
+        elif FullHouse(list).is_True():
+            return FullHouse(list)
+        
+        elif Flush(list).is_True():
+            return Flush(list)
+        
+        elif Straight(list).is_True():
+            return Straight(list)
+        
+        elif ThreeKind(list).is_True():
+            return ThreeKind(list)
+        
+        elif TwoPair(list).is_True():
+            return TwoPair(list)
+        
+        elif Pair(list).is_True():
+            return Pair(list)
+        
         else:
-            return HighCard(self.cards)
+            return HighCard(list)
 
 
 class StandardDeck(list):
@@ -559,7 +562,7 @@ class Pair(PokerHand):
                     for u in self.hand:
                         self.cards.remove(u)
                     self.cards.sort()
-                    return True    
+                    return True   
             self.hand.clear()
                 
         return False
