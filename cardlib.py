@@ -272,29 +272,13 @@ class Straight_flush(PokerHand):
         self.hand = []
 
     def is_True(self):
-        self.cards.sort()
-        counter = 0
-        for i in range(len(self.cards)):
-            self.hand.append(self.cards[i])
-            for j in range(i,len(self.cards)-1):
-                if self.cards[j].get_value() + 1 == self.cards[j+1].get_value():
-                    counter += 1
-                    self.hand.append(self.cards[j+1])
-            if counter == 5:
-                counter = 0
-                for i in self.hand:
-                    for j in range(i+1,len(self.cards)):
-                        if i.suit == self.cards[j].suit:
-                            counter += 1
-                    if counter == 5:
-                        return self.hand
-                    else:
-                        counter = 0
+        if Straight(self.cards).is_True() != False:
+            if Flush(Straight(self.cards).is_True()).is_True() != False:
+                return Straight(self.cards).is_True()
             else:
-                counter = 0
-                self.hand.clear()
-        
-        return False
+                return False
+        else:
+            return False
     
     def get_value(self):
         return 9
@@ -400,33 +384,32 @@ class FullHouse(PokerHand):
 
 
 class Flush(PokerHand):
-    def __init__(self,cards = []):
+    def __init__(self,cards =[]):
         self.cards = cards
         self.hand = []
 
     def is_True(self):
-        self.cards.sort()
-        counter = 0
+        counter = 1
         for i in range(len(self.cards)):
             self.hand.append(self.cards[i])
-            for j in range(i,len(self.cards)-1):
-                if self.cards[j].get_value() + 1 == self.cards[j+1].get_value():
+            for j in range(i+1,len(self.cards)):
+                if self.cards[i].suit == self.cards[j].suit:
                     counter += 1
-                    self.hand.append(self.cards[j+1])
+                    self.hand.append(self.cards[j])
             if counter == 5:
-                return self.hand
+                return True
             else:
-                counter = 0
+                counter = 1
                 self.hand.clear()
         
         return False
 
     def get_value(self):
-        return 6
+        return 5
 
     def eigen_value(self):
         self.is_True()
-        return self.hand[-1].get_value()
+        return self.hand[0].suit.value
 
     def __lt__(self,other: object):
         if self.get_value() < other.get_value():
@@ -441,32 +424,34 @@ class Flush(PokerHand):
 
 
 class Straight(PokerHand):
-    def __init__(self,cards =[]):
+    def __init__(self,cards = []):
         self.cards = cards
         self.hand = []
 
     def is_True(self):
-        counter = 0
+        self.cards.sort()
+        counter = 1
+        print(self.cards)
         for i in range(len(self.cards)):
             self.hand.append(self.cards[i])
-            for j in range(i+1,len(self.cards)):
-                if self.cards[i].suit == self.cards[j].suit:
+            for j in range(i,len(self.cards)-1):
+                if self.cards[j].get_value() + 1 == self.cards[j+1].get_value():
                     counter += 1
-                    self.hand.append(self.cards[j])
+                    self.hand.append(self.cards[j+1])
             if counter == 5:
-                return True
+                return self.hand
             else:
-                counter = 0
+                counter = 1
                 self.hand.clear()
         
         return False
 
     def get_value(self):
-        return 5
+        return 6
 
     def eigen_value(self):
         self.is_True()
-        return self.hand[0].suit.value
+        return self.hand[-1].get_value()
 
     def __lt__(self,other: object):
         if self.get_value() < other.get_value():
