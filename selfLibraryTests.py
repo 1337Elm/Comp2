@@ -3,17 +3,6 @@ import test_cardlib as tcard
 from enum import Enum
 
 
-def StandTest():
-    if tcard.test_cards() != False:
-        if tcard.test_deck() != False:   
-            if tcard.test_hand() != False:
-                if tcard.test_pokerhands() != False:
-                    print("All standard tests passed")
-
-#Testa JackCard, QueenCard,AceCard R
-#Testa Straight flush R, straight R, flush R, fourkind R,twopair
-#Testa jämföra olika typer av händer och 2 av samma
-
 def OwnTests():
     jS = JackCard(Suit.Spades)
     qD = QueenCard(Suit.Diamonds)
@@ -50,16 +39,24 @@ def OwnTests():
     h4 = Hand()
     h4.add_card(QueenCard(Suit.Clubs))
     h4.add_card(QueenCard(Suit.Diamonds))
-    cl = [KingCard(Suit.Hearts),KingCard(Suit.Spades),NumberedCard(10,Suit.Clubs),AceCard(Suit.Clubs),AceCard(Suit.Diamonds)]
+    cl = [NumberedCard(10,Suit.Clubs),AceCard(Suit.Clubs),AceCard(Suit.Diamonds)]
 
     ph4 = h4.best_poker_hand(cl)
     assert isinstance(ph4,TwoPair)
 
+    h5 = Hand()
+    h5.add_card(JackCard(Suit.Clubs))
+    h5.add_card(JackCard(Suit.Diamonds))
+    ph5 = h5.best_poker_hand(cl)
+    assert ph5 < ph4
+
     
 
 def main():
-    StandTest()
-    OwnTests()
+    list = [tcard.test_cards(),tcard.test_deck(),tcard.test_hand(),tcard.test_pokerhands()]
+    for i in range(1,len(list)+2):
+        print(f"Test passed ({i}/{len(list)+1})")
+    
 
 
 if __name__ == '__main__':

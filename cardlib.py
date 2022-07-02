@@ -532,15 +532,16 @@ class TwoPair(PokerHand):
             for j in range(i+1,len(self.cards)):
                 if self.cards[i].get_value() == self.cards[j].get_value():
                     self.hand.append(self.cards[j])
+                    nextPair = []
+                    for u in self.cards:
+                        if u != self.hand[0]:
+                            nextPair.append(u)
 
-                    for u in self.hand:
-                        self.cards.remove(u)
-
-                    for i in range(len(self.cards)-1):
-                        self.hand.append(self.cards[i])
-                        for j in range(i+1,len(self.cards)):
-                            if self.cards[i].get_value() == self.cards[j].get_value():
-                                self.hand.append(self.cards[j])
+                    for i in range(len(nextPair)-1):
+                        self.hand.append(nextPair[i])
+                        for j in range(i+1,len(nextPair)):
+                            if nextPair[i].get_value() == nextPair[j].get_value():
+                                self.hand.append(nextPair[j])
                                 return self.hand
                         self.hand.clear()
                     return False
@@ -560,6 +561,16 @@ class TwoPair(PokerHand):
         elif self.get_value() == other.get_value():
             if self.eigen_value() < other.eigen_value():
                 return True
+            elif self.eigen_value() == other.eigen_value():
+                self.is_True()
+                self.hand.sort()
+
+                other.is_True()
+                other.hand.sort()
+                if self.hand[0].get_value() < other.hand[0].get_value():
+                    return True
+                else:
+                    return False
             else:
                 return False
         else:
@@ -570,12 +581,10 @@ class Pair(PokerHand):
     def __init__(self,cards = []):
         self.cards = cards
         self.hand = []
+        self.cards.sort()
 
     def is_True(self):
-        self.cards.sort()
         self.cards.reverse()
-        for i in self.cards:
-            print(f"{i.get_value()} of {i.suit}")
         for i in range(len(self.cards)-1):
             self.hand.append(self.cards[i])
             for j in range(i+1,len(self.cards)):
