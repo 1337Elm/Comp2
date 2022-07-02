@@ -313,6 +313,16 @@ class Straight_flush(PokerHand):
         elif self.get_value() == other.get_value():
             if self.eigen_value() < other.eigen_value():
                 return True
+            elif self.eigen_value() == other.eigen_value():
+                self.is_True()
+                self.hand.sort()
+
+                other.is_True()
+                other.hand.sort()
+                if self.hand[-1].suit.value > other.hand[-1].suit.value:
+                    return True
+                else:
+                    return False
             else:
                 return False
         else:
@@ -435,6 +445,16 @@ class Flush(PokerHand):
         elif self.get_value() == other.get_value():
             if self.eigen_value() < other.eigen_value():
                 return True
+            elif self.eigen_value() == other.eigen_value():
+                self.is_True()
+                self.hand.sort()
+
+                other.is_True()
+                other.hand.sort()
+                if self.hand[-1].suit.value > other.hand[-1].suit.value:
+                    return True
+                else:
+                    return False
             else:
                 return False
         else:
@@ -476,6 +496,16 @@ class Straight(PokerHand):
         elif self.get_value() == other.get_value():
             if self.eigen_value() < other.eigen_value():
                 return True
+            elif self.eigen_value() == other.eigen_value():
+                self.is_True()
+                self.hand.sort()
+
+                other.is_True()
+                other.hand.sort()
+                if self.hand[-1].suit.value > other.hand[-1].suit.value:
+                    return True
+                else:
+                    return False
             else:
                 return False
         else:
@@ -569,8 +599,11 @@ class TwoPair(PokerHand):
                 other.hand.sort()
                 if self.hand[0].get_value() < other.hand[0].get_value():
                     return True
-                else:
-                    return False
+                elif self.hand[0].get_value() == other.hand[0].get_value():
+                    if self.hand[-1].suit.value > other.hand[-1].suit.value:
+                        return True
+                    else:
+                        return False
             else:
                 return False
         else:
@@ -609,12 +642,31 @@ class Pair(PokerHand):
             if self.eigen_value() < other.eigen_value():
                 return True
             elif self.eigen_value() == other.eigen_value():
-                if self.cards[0].get_value() < other.cards[0].get_value():
-                    return True
-                else:
-                    return False
-                
-            return False
+                self.is_True()
+                self.hand.sort()
+
+                other.is_True()
+                other.hand.sort()
+
+                listself = []
+                listother = []
+                for i in range(len(self.cards)):
+                    if self.cards[i] not in self.hand:
+                        listself.append(self.cards[i])
+                    if other.cards[i] not in other.hand:
+                        listother.append(other.cards[i])
+
+                listself.sort()
+                listother.sort()
+                for i in range(len(listself)):
+                    if listself[i] < listother[i]:
+                        return True
+                    elif listself[i] == listother[i]:
+                        if listself[i].suit.value > listother[i].suit.value:
+                            return True
+                return False
+            else:    
+                return False
         else:
             return False
 
@@ -636,6 +688,9 @@ class HighCard(PokerHand):
         elif self.get_value() == other.get_value():
             if self.eigen_value() < other.eigen_value():
                 return True
+            elif self.eigen_value() == other.eigen_value():
+                if self.cards[-1].suit.value > other.cards[-1].suit.value:
+                    return True
             else:
                 return False
         else:
