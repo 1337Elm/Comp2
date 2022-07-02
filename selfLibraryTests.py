@@ -56,7 +56,6 @@ def main():
     list = [tcard.test_cards(),tcard.test_deck(),tcard.test_hand(),tcard.test_pokerhands()]
     for i in range(1,len(list)+2):
         print(f"Test passed ({i}/{len(list)+1})")
-    
 
 
 if __name__ == '__main__':

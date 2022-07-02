@@ -25,7 +25,10 @@ class PlayingCard(ABC):
     @abstractmethod
     def __lt__(self, other: object):
         pass
-
+    
+    @abstractmethod
+    def __repr__(self):
+        pass
 
 class NumberedCard(PlayingCard):
     def __init__(self, value, suit):
@@ -50,6 +53,17 @@ class NumberedCard(PlayingCard):
                 return True
         else:
             return False
+    
+    def __repr__(self):
+        if self.suit.value == 0:
+            return f"{self.value} of Hearts"
+        elif self.suit.value == 1:
+            return f"{self.value} of Spades"
+        elif self.suit.value == 2:
+            return f"{self.value} of Clubs"
+        elif self.suit.value == 3:
+            return f"{self.value} of Diamonds"
+        
 
     
 class JackCard(PlayingCard):
@@ -74,6 +88,16 @@ class JackCard(PlayingCard):
                 return True
         else:
             return False
+    
+    def __repr__(self):
+        if self.suit.value == 0:
+            return "Jack of Hearts"
+        elif self.suit.value == 1:
+            return "Jack of Spades"
+        elif self.suit.value == 2:
+            return "Jack of Clubs"
+        elif self.suit.value == 3:
+            return "Jack of Diamonds"
 
 
 class QueenCard(PlayingCard):
@@ -99,6 +123,16 @@ class QueenCard(PlayingCard):
         else:
             return False
 
+    def __repr__(self):
+        if self.suit.value == 0:
+            return "Queen of Hearts"
+        elif self.suit.value == 1:
+            return "Queen of Spades"
+        elif self.suit.value == 2:
+            return "Queen of Clubs"
+        elif self.suit.value == 3:
+            return "Queen of Diamonds"
+
 
 class KingCard(PlayingCard):
     def __init__(self, suit):
@@ -122,6 +156,16 @@ class KingCard(PlayingCard):
                 return True
         else:
             return False
+    
+    def __repr__(self):
+        if self.suit.value == 0:
+            return "King of Hearts"
+        elif self.suit.value == 1:
+            return "King of Spades"
+        elif self.suit.value == 2:
+            return "King of Clubs"
+        elif self.suit.value == 3:
+            return "King of Diamonds"
 
 
 class AceCard(PlayingCard):
@@ -147,6 +191,15 @@ class AceCard(PlayingCard):
         else:
             return False
 
+    def __repr__(self):
+        if self.suit.value == 0:
+            return "Ace of Hearts"
+        elif self.suit.value == 1:
+            return "Ace of Spades"
+        elif self.suit.value == 2:
+            return "Ace of Clubs"
+        elif self.suit.value == 3:
+            return "Ace of Diamonds"
 
 class Suit(Enum):
     Hearts = 0
@@ -225,6 +278,9 @@ class Hand(list):
         
         else:
             return HighCard(list)
+    
+    def __repr__(self):
+        return f"Hand containing {self.cards}"
 
 
 class StandardDeck(list):
@@ -247,6 +303,9 @@ class StandardDeck(list):
     def draw(self):
         return(self.pop(0))
 
+    def __repr__(self):
+        return "Deck of cards"
+
 
 class PokerHand(ABC):
     @abstractmethod
@@ -263,6 +322,10 @@ class PokerHand(ABC):
     
     @abstractmethod
     def __lt__(self,other: object):
+        pass
+    
+    @abstractmethod
+    def __repr__(self):
         pass
 
 
@@ -289,7 +352,7 @@ class Straight_flush(PokerHand):
                             counter += 1
                             self.hand.append(self.cards[j])
                     if counter == 5:
-                        return True
+                        return self.hand
                     else:
                         counter = 1
                         self.hand.clear()
@@ -328,6 +391,9 @@ class Straight_flush(PokerHand):
         else:
             return False
 
+    def __repr__(self):
+        return f"Straight flush, {self.is_True()}"
+
 
 class FourKind(PokerHand):
     def __init__(self,cards = []):
@@ -363,7 +429,10 @@ class FourKind(PokerHand):
             else:
                 return False
         else:
-            return False     
+            return False 
+
+    def __repr__(self):
+        return f"Four of a Kind, {self.is_True()}"   
 
 
 class FullHouse(PokerHand):
@@ -408,7 +477,10 @@ class FullHouse(PokerHand):
             else:
                 return False
         else:
-            return False  
+            return False
+
+    def __repr__(self):
+        return f"Full House, {self.is_True()}"   
 
 
 class Flush(PokerHand):
@@ -425,7 +497,7 @@ class Flush(PokerHand):
                     counter += 1
                     self.hand.append(self.cards[j])
             if counter == 5:
-                return True
+                return self.hand
             else:
                 counter = 1
                 self.hand.clear()
@@ -459,6 +531,9 @@ class Flush(PokerHand):
                 return False
         else:
             return False
+    
+    def __repr__(self):
+        return f"Flush, {self.is_True()}"  
 
 
 class Straight(PokerHand):
@@ -511,6 +586,9 @@ class Straight(PokerHand):
         else:
             return False
 
+    def __repr__(self):
+        return f"Straight, {self.is_True()}"  
+
 
 class ThreeKind(PokerHand):
     def __init__(self,cards = []):
@@ -548,6 +626,8 @@ class ThreeKind(PokerHand):
         else:
             return False
 
+    def __repr__(self):
+        return f"Three of a Kind, {self.is_True()}"  
 
 class TwoPair(PokerHand):
     def __init__(self,cards = []):
@@ -608,6 +688,8 @@ class TwoPair(PokerHand):
                 return False
         else:
             return False
+    def __repr__(self):
+        return f"Two Pairs, {self.is_True()}"  
 
 
 class Pair(PokerHand):
@@ -670,6 +752,9 @@ class Pair(PokerHand):
         else:
             return False
 
+    def __repr__(self):
+        return f"Pair, {self.is_True()}"  
+
 
 class HighCard(PokerHand):
     def __init__(self,cards = []):
@@ -695,3 +780,5 @@ class HighCard(PokerHand):
                 return False
         else:
             return False
+    def __repr__(self):
+        return f"Highcard, {self.cards[-1]}"  
